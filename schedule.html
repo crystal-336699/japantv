@@ -11,7 +11,7 @@
   * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
   body { font-family:"Noto Sans JP",sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
   header { position:sticky; top:0; z-index:100; background:rgba(13,13,20,0.95); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:14px 16px; display:flex; align-items:center; gap:12px; }
-  .back-btn { background:var(--card); border:1px solid var(--border); color:var(--text); border-radius:10px; padding:7px 14px; font-size:13px; cursor:pointer; text-decoration:none; font-family:inherit; flex-shrink:0; }
+  .back-btn { background:var(--card); border:1px solid var(--border); color:var(--text); border-radius:10px; padding:7px 14px; font-size:13px; text-decoration:none; font-family:inherit; flex-shrink:0; }
   .header-title { font-size:18px; font-weight:700; }
   .header-title span { color:var(--accent); }
   .content { padding:14px 14px 40px; max-width:600px; margin:0 auto; }
@@ -40,24 +40,40 @@
 <div class="content">
   <div class="intro">
     <h2>일본 TV 방송 편성표</h2>
-    <p>탭하면 해당 편성표 페이지로 이동해요. 통합 편성표가 가장 편리해요!</p>
+    <p>탭하면 해당 편성표 페이지로 이동해요.<br>통합 편성표 사이트가 모든 채널을 한 번에 볼 수 있어 가장 편리해요!</p>
   </div>
 
-  <div class="section-title">&#11088; 통합 편성표 (추천)</div>
+  <div class="section-title">&#11088; 통합 편성표 — 검증된 사이트</div>
   <div class="links">
-    <a class="link-card" href="https://bangumi.org/epg/td" target="_blank">
-      <div class="link-icon" style="background:#1a0d1a;">&#128302;</div>
+    <a class="link-card" href="https://bangumi.org/epg/td?ggm_group_id=42" target="_blank">
+      <div class="link-icon" style="background:#1a0f1a;">&#127914;</div>
       <div class="link-info">
-        <div class="link-name">Bangumi 지상파 <span class="tag tag-rec">추천</span></div>
-        <div class="link-desc">NHK·NTV·TBS·フジ·朝日·テレ東 전체 편성표</div>
+        <div class="link-name">Bangumi 지상파 전체 <span class="tag tag-rec">추천</span></div>
+        <div class="link-desc">NHK·NTV·TBS·フジ·テレ朝·テレ東 한 화면에</div>
       </div>
       <div class="link-arrow">&#8250;</div>
     </a>
     <a class="link-card" href="https://bangumi.org/epg/bs" target="_blank">
-      <div class="link-icon" style="background:#1a0d1a;">&#128225;</div>
+      <div class="link-icon" style="background:#1a0f1a;">&#128225;</div>
       <div class="link-info">
         <div class="link-name">Bangumi BS 전체 <span class="tag tag-rec">추천</span></div>
-        <div class="link-desc">BS朝日·BS-TBS·BSテレ東·BSフジ 등 전체</div>
+        <div class="link-desc">BS朝日·BS-TBS·BSテレ東·BSフジ·BS日テレ 등</div>
+      </div>
+      <div class="link-arrow">&#8250;</div>
+    </a>
+    <a class="link-card" href="https://www.tvkingdom.jp/chart/23.action" target="_blank">
+      <div class="link-icon" style="background:#0d1a1a;">&#128250;</div>
+      <div class="link-info">
+        <div class="link-name">Gガイド テレビ王国 지상파</div>
+        <div class="link-desc">도쿄 지상파 전체 시간표 형식</div>
+      </div>
+      <div class="link-arrow">&#8250;</div>
+    </a>
+    <a class="link-card" href="https://www.tvkingdom.jp/chart/bs1.action" target="_blank">
+      <div class="link-icon" style="background:#0d1a1a;">&#128225;</div>
+      <div class="link-info">
+        <div class="link-name">Gガイド テレビ王国 BS</div>
+        <div class="link-desc">BS 전 채널 시간표 형식</div>
       </div>
       <div class="link-arrow">&#8250;</div>
     </a>
@@ -65,23 +81,7 @@
       <div class="link-icon" style="background:#1f1a0a;">&#127942;</div>
       <div class="link-info">
         <div class="link-name">Yahoo! TV 편성표</div>
-        <div class="link-desc">시간대별 검색 · 장르 필터 지원</div>
-      </div>
-      <div class="link-arrow">&#8250;</div>
-    </a>
-    <a class="link-card" href="https://www.tvkingdom.jp/chart/23.action" target="_blank">
-      <div class="link-icon" style="background:#0d1a1a;">&#128250;</div>
-      <div class="link-info">
-        <div class="link-name">Gガイド テレビ王国</div>
-        <div class="link-desc">도쿄 지상파 전체 편성표</div>
-      </div>
-      <div class="link-arrow">&#8250;</div>
-    </a>
-    <a class="link-card" href="https://www.tvkingdom.jp/chart/bs1.action" target="_blank">
-      <div class="link-icon" style="background:#0d1a1a;">&#128225;</div>
-      <div class="link-info">
-        <div class="link-name">Gガイド BS편성표</div>
-        <div class="link-desc">BS 전 채널 편성표</div>
+        <div class="link-desc">장르·시간대 필터 검색 가능</div>
       </div>
       <div class="link-arrow">&#8250;</div>
     </a>
@@ -105,7 +105,7 @@
       </div>
       <div class="link-arrow">&#8250;</div>
     </a>
-    <a class="link-card" href="https://www.tbs.co.jp/timetable/" target="_blank">
+    <a class="link-card" href="https://www.tbs.co.jp/tv_timetable/" target="_blank">
       <div class="link-icon" style="background:#1f0d0d;">&#128308;</div>
       <div class="link-info">
         <div class="link-name">TBS テレビ</div>
@@ -113,7 +113,7 @@
       </div>
       <div class="link-arrow">&#8250;</div>
     </a>
-    <a class="link-card" href="https://www.fujitv.co.jp/timetable/" target="_blank">
+    <a class="link-card" href="https://www.fujitv.co.jp/b_hp/timetable.html" target="_blank">
       <div class="link-icon" style="background:#0d0d1f;">&#128309;</div>
       <div class="link-info">
         <div class="link-name">フジテレビ</div>
@@ -121,7 +121,7 @@
       </div>
       <div class="link-arrow">&#8250;</div>
     </a>
-    <a class="link-card" href="https://www.tv-asahi.co.jp/timetable/" target="_blank">
+    <a class="link-card" href="https://www.tv-asahi.co.jp/bangumi_pc/" target="_blank">
       <div class="link-icon" style="background:#0d1a1f;">&#129679;</div>
       <div class="link-info">
         <div class="link-name">テレビ朝日</div>
@@ -129,7 +129,7 @@
       </div>
       <div class="link-arrow">&#8250;</div>
     </a>
-    <a class="link-card" href="https://www.tv-tokyo.co.jp/timetable/" target="_blank">
+    <a class="link-card" href="https://www.tv-tokyo.co.jp/timetable/broad_tvtokyo/" target="_blank">
       <div class="link-icon" style="background:#1f1f0d;">&#128993;</div>
       <div class="link-info">
         <div class="link-name">テレビ東京</div>
@@ -139,7 +139,51 @@
     </a>
   </div>
 
-  <div class="section-title">&#127914; 애니메이션 편성</div>
+  <div class="section-title">&#128225; BS 공식 편성표</div>
+  <div class="links">
+    <a class="link-card" href="https://www.nhk.jp/timetable/bs/" target="_blank">
+      <div class="link-icon" style="background:#0d1f0d;">&#128994;</div>
+      <div class="link-info">
+        <div class="link-name">NHK BS</div>
+        <div class="link-desc">nhk.jp BS 편성표</div>
+      </div>
+      <div class="link-arrow">&#8250;</div>
+    </a>
+    <a class="link-card" href="https://bs.tbs.co.jp/timetable/" target="_blank">
+      <div class="link-icon" style="background:#1f0d0d;">&#128308;</div>
+      <div class="link-info">
+        <div class="link-name">BS-TBS</div>
+        <div class="link-desc">bs.tbs.co.jp 편성표</div>
+      </div>
+      <div class="link-arrow">&#8250;</div>
+    </a>
+    <a class="link-card" href="https://www.bsasahi.co.jp/timetable/" target="_blank">
+      <div class="link-icon" style="background:#0d1a1f;">&#129679;</div>
+      <div class="link-info">
+        <div class="link-name">BS朝日</div>
+        <div class="link-desc">bsasahi.co.jp 편성표</div>
+      </div>
+      <div class="link-arrow">&#8250;</div>
+    </a>
+    <a class="link-card" href="https://www.bsfuji.tv/timetable/" target="_blank">
+      <div class="link-icon" style="background:#0d0d1f;">&#128309;</div>
+      <div class="link-info">
+        <div class="link-name">BSフジ</div>
+        <div class="link-desc">bsfuji.tv 편성표</div>
+      </div>
+      <div class="link-arrow">&#8250;</div>
+    </a>
+    <a class="link-card" href="https://www.bs-tvtokyo.co.jp/timetable/" target="_blank">
+      <div class="link-icon" style="background:#1f1f0d;">&#128993;</div>
+      <div class="link-info">
+        <div class="link-name">BSテレ東</div>
+        <div class="link-desc">bs-tvtokyo.co.jp 편성표</div>
+      </div>
+      <div class="link-arrow">&#8250;</div>
+    </a>
+  </div>
+
+  <div class="section-title">&#127866; 애니메이션 편성</div>
   <div class="links">
     <a class="link-card" href="https://bangumi.org/" target="_blank">
       <div class="link-icon" style="background:#0d1a1a;">&#128203;</div>
