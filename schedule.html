@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>📅 일본 TV 편성표</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0d14; --surface:#16161f; --card:#1e1e2e; --border:#2a2a3d;
+    --accent:#e94560; --accent2:#f7a325; --text:#e8e8f0; --muted:#6b6b88; --radius:14px;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+  body { font-family:"Noto Sans JP",sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+  header { position:sticky; top:0; z-index:100; background:rgba(13,13,20,0.95); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:14px 16px; display:flex; align-items:center; gap:12px; }
+  .back-btn { background:var(--card); border:1px solid var(--border); color:var(--text); border-radius:10px; padding:7px 14px; font-size:13px; cursor:pointer; text-decoration:none; font-family:inherit; flex-shrink:0; }
+  .header-title { font-size:18px; font-weight:700; }
+  .header-title span { color:var(--accent); }
+
+  .content { padding:14px 14px 40px; max-width:600px; margin:0 auto; }
+
+  .intro { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:16px; margin-bottom:20px; }
+  .intro h2 { font-size:15px; margin-bottom:6px; }
+  .intro p { font-size:13px; color:var(--muted); line-height:1.7; }
+
+  .section-title { font-size:11px; font-weight:700; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; font-family:"DM Mono",monospace; margin:20px 0 10px; }
+
+  .links { display:flex; flex-direction:column; gap:8px; }
+  .link-card { display:flex; align-items:center; gap:14px; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; text-decoration:none; transition:all .18s; cursor:pointer; }
+  .link-card:active { transform:scale(.98); border-color:var(--accent2); background:#1e1e2e; }
+  .link-icon { width:42px; height:42px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:21px; flex-shrink:0; }
+  .link-info { flex:1; }
+  .link-name { font-size:15px; font-weight:700; color:var(--text); margin-bottom:3px; }
+  .link-desc { font-size:12px; color:var(--muted); line-height:1.5; }
+  .link-arrow { font-size:18px; color:var(--muted); flex-shrink:0; }
+  .link-card:active .link-arrow { color:var(--accent2); }
+
+  .tag { display:inline-block; font-size:10px; padding:2px 7px; border-radius:10px; font-family:"DM Mono",monospace; margin-left:6px; vertical-align:middle; }
+  .tag-rec { background:#1a2a1a; color:var(--live); border:1px solid #2a4a2a; }
+  .tag-anime { background:#1a1a2a; color:#89b4fa; border:1px solid #2a2a4a; }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-btn" href="https://crystal-336699.github.io/japantv">← 채널로</a>
+  <div class="header-title">📅 <span>편성표</span></div>
+</header>
+
+<div class="content">
+  <div class="intro">
+    <h2>일본 TV 방송 편성표</h2>
+    <p>각 방송사 공식 사이트의 편성표 페이지로 바로 이동해요. 탭하면 새 창으로 열려요.</p>
+  </div>
+
+  <div class="section-title">&#127914; 지상파</div>
+  <div class="links">
+    <a class="link-card" href="https://www.nhk.or.jp/timetable/" target="_blank">
+      <div class="link-icon" style="background:#0d1f0d;">&#128994;</div>
+      <div class="link-info">
+        <div class="link-name">NHK 종합</div>
+        <div class="link-desc">nhk.or.jp 공식 편성표</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+    <a class="link-card" href="https://www.ntv.co.jp/program/" target="_blank">
+      <div class="link-icon" style="background:#0d0d1f;">&#128250;</div>
+      <div class="link-info">
+        <div class="link-name">日本テレビ (NTV)</div>
+        <div class="link-desc">ntv.co.jp 공식 편성표</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+    <a class="link-card" href="https://www.tbs.co.jp/timetable/" target="_blank">
+      <div class="link-icon" style="background:#1f0d0d;">&#128308;</div>
+      <div class="link-info">
+        <div class="link-name">TBS テレビ</div>
+        <div class="link-desc">tbs.co.jp 공식 편성표</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+    <a class="link-card" href="https://www.fujitv.co.jp/timetable/" target="_blank">
+      <div class="link-icon" style="background:#0d0d1f;">&#128309;</div>
+      <div class="link-info">
+        <div class="link-name">フジテレビ</div>
+        <div class="link-desc">fujitv.co.jp 공식 편성표</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+    <a class="link-card" href="https://www.tv-asahi.co.jp/timetable/" target="_blank">
+      <div class="link-icon" style="background:#0d1a1f;">&#129679;</div>
+      <div class="link-info">
+        <div class="link-name">テレビ朝日</div>
+        <div class="link-desc">tv-asahi.co.jp 공식 편성표</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+    <a class="link-card" href="https://www.tv-tokyo.co.jp/timetable/" target="_blank">
+      <div class="link-icon" style="background:#1f1f0d;">&#128993;</div>
+      <div class="link-info">
+        <div class="link-name">テレビ東京</div>
+        <div class="link-desc">tv-tokyo.co.jp 공식 편성표</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+  </div>
+
+  <div class="section-title">&#128225; BS 채널</div>
+  <div class="links">
+    <a class="link-card" href="https://www.nhk.or.jp/timetable/bs1/" target="_blank">
+      <div class="link-icon" style="background:#0d1f0d;">&#128994;</div>
+      <div class="link-info">
+        <div class="link-name">NHK BS</div>
+        <div class="link-desc">nhk.or.jp BS 편성표</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+    <a class="link-card" href="https://www.bs-tbs.co.jp/timetable/" target="_blank">
+      <div class="link-icon" style="background:#1f0d0d;">&#128308;</div>
+      <div class="link-info">
+        <div class="link-name">BS-TBS</div>
+        <div class="link-desc">bs-tbs.co.jp 편성표</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+    <a class="link-card" href="https://www.bsasahi.co.jp/timetable/" target="_blank">
+      <div class="link-icon" style="background:#0d1a1f;">&#129679;</div>
+      <div class="link-info">
+        <div class="link-name">BS朝日</div>
+        <div class="link-desc">bsasahi.co.jp 편성표</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+    <a class="link-card" href="https://www.bsfuji.tv/timetable/" target="_blank">
+      <div class="link-icon" style="background:#0d0d1f;">&#128309;</div>
+      <div class="link-info">
+        <div class="link-name">BSフジ</div>
+        <div class="link-desc">bsfuji.tv 편성표</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+    <a class="link-card" href="https://www.bs-tvtokyo.co.jp/timetable/" target="_blank">
+      <div class="link-icon" style="background:#1f1f0d;">&#128993;</div>
+      <div class="link-info">
+        <div class="link-name">BSテレ東</div>
+        <div class="link-desc">bs-tvtokyo.co.jp 편성표</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+    <a class="link-card" href="https://www.bsnittele.co.jp/timetable/" target="_blank">
+      <div class="link-icon" style="background:#0d0d1f;">&#128250;</div>
+      <div class="link-info">
+        <div class="link-name">BS日テレ</div>
+        <div class="link-desc">bsnittele.co.jp 편성표</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+  </div>
+
+  <div class="section-title">&#127757; 통합 편성표</div>
+  <div class="links">
+    <a class="link-card" href="https://tv.yahoo.co.jp/listings/" target="_blank">
+      <div class="link-icon" style="background:#1f0d1f;">&#128302;</div>
+      <div class="link-info">
+        <div class="link-name">Yahoo! TV <span class="tag tag-rec">추천</span></div>
+        <div class="link-desc">전 채널 통합 편성표 · 시간대별 검색 가능</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+    <a class="link-card" href="https://tv.yahoo.co.jp/rankings/drama/" target="_blank">
+      <div class="link-icon" style="background:#1f0d1f;">&#127942;</div>
+      <div class="link-info">
+        <div class="link-name">Yahoo! TV 드라마 랭킹</div>
+        <div class="link-desc">인기 드라마 순위 확인</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+    <a class="link-card" href="https://bangumi.org/" target="_blank">
+      <div class="link-icon" style="background:#0d1a1f;">&#128203;</div>
+      <div class="link-info">
+        <div class="link-name">Bangumi <span class="tag tag-anime">애니</span></div>
+        <div class="link-desc">애니메이션 · 드라마 편성 전문 사이트</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+    <a class="link-card" href="https://cal.syoboi.jp/" target="_blank">
+      <div class="link-icon" style="background:#0d1a1f;">&#128196;</div>
+      <div class="link-info">
+        <div class="link-name">しょぼいカレンダー <span class="tag tag-anime">애니</span></div>
+        <div class="link-desc">일본 애니 방영 일정 전문</div>
+      </div>
+      <div class="link-arrow">›</div>
+    </a>
+  </div>
+</div>
+
+</body>
+</html>
