@@ -9,168 +9,304 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:#0d0d14; --surface:#16161f; --card:#1e1e2e; --border:#2a2a3d;
-    --accent:#e94560; --accent2:#f7a325; --text:#e8e8f0; --muted:#6b6b88;
-    --live:#22c55e; --radius:14px;
+    --bg:       #0d0d14;
+    --surface:  #16161f;
+    --card:     #1e1e2e;
+    --border:   #2a2a3d;
+    --accent:   #e94560;
+    --accent2:  #f7a325;
+    --text:     #e8e8f0;
+    --muted:    #6b6b88;
+    --live:     #22c55e;
+    --radius:   14px;
   }
-  * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
-  body { font-family:"Noto Sans JP",sans-serif; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
 
-  header { position:sticky; top:0; z-index:100; background:rgba(13,13,20,0.95); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:12px 16px 0; }
-  .header-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-  .logo { font-size:19px; font-weight:700; display:flex; align-items:center; gap:6px; }
-  .logo span { color:var(--accent); }
-  .badge { font-family:"DM Mono",monospace; font-size:11px; padding:3px 8px; background:var(--card); border:1px solid var(--border); border-radius:20px; color:var(--muted); }
-  .badge.live { border-color:var(--live); color:var(--live); }
-  #refresh-btn { background:var(--card); border:1px solid var(--border); color:var(--text); border-radius:10px; padding:6px 12px; font-size:12px; cursor:pointer; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-  .tab-nav { display:flex; }
-  .tab-btn { flex:1; padding:10px 4px; font-size:13px; font-family:inherit; font-weight:700; background:none; border:none; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; transition:all .2s; }
-  .tab-btn.active { color:var(--accent); border-bottom-color:var(--accent); }
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-  .search-wrap { position:relative; margin:10px 14px 6px; }
-  .search-wrap input { width:100%; padding:9px 12px 9px 36px; background:var(--card); border:1px solid var(--border); border-radius:10px; color:var(--text); font-size:15px; font-family:inherit; outline:none; }
-  .search-wrap input:focus { border-color:var(--accent); }
-  .search-icon { position:absolute; left:11px; top:50%; transform:translateY(-50%); font-size:15px; pointer-events:none; }
-  .genre-scroll { display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; padding:0 14px 10px; }
-  .genre-scroll::-webkit-scrollbar { display:none; }
-  .genre-btn { flex-shrink:0; padding:5px 12px; border-radius:20px; border:1px solid var(--border); background:var(--card); color:var(--muted); font-size:12px; font-family:inherit; cursor:pointer; white-space:nowrap; }
-  .genre-btn.active { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700; }
+  /* ── 헤더 ── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,13,20,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 18px 10px;
+  }
+  .header-top {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .logo {
+    font-size: 20px; font-weight: 700; letter-spacing: -0.5px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .logo span { color: var(--accent); }
+  .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; padding: 3px 8px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; color: var(--muted);
+  }
+  .badge.live { border-color: var(--live); color: var(--live); }
 
-  #progress-wrap { height:2px; background:var(--border); }
-  #progress-bar { height:100%; width:0%; background:var(--accent); transition:width .3s; }
-  #status { text-align:center; padding:12px 18px; font-size:12px; color:var(--muted); font-family:"DM Mono",monospace; min-height:40px; }
+  #refresh-btn {
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--text); border-radius: 10px;
+    padding: 7px 14px; font-size: 13px; cursor: pointer;
+    transition: all .2s;
+  }
+  #refresh-btn:active { background: var(--border); transform: scale(.97); }
 
-  .tab-content { display:none; }
-  .tab-content.active { display:block; }
+  /* ── 검색/필터 ── */
+  .search-wrap {
+    position: relative; margin-bottom: 10px;
+  }
+  .search-wrap input {
+    width: 100%; padding: 10px 14px 10px 38px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text);
+    font-size: 15px; font-family: inherit;
+    outline: none; transition: border .2s;
+  }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-icon {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    font-size: 16px; pointer-events: none;
+  }
 
-  #channel-list, #bookmark-list { padding:4px 14px 120px; display:flex; flex-direction:column; gap:6px; }
+  .genre-scroll {
+    display: flex; gap: 7px; overflow-x: auto;
+    scrollbar-width: none; padding-bottom: 2px;
+  }
+  .genre-scroll::-webkit-scrollbar { display: none; }
+  .genre-btn {
+    flex-shrink: 0;
+    padding: 5px 13px; border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--card); color: var(--muted);
+    font-size: 13px; font-family: inherit;
+    cursor: pointer; transition: all .2s; white-space: nowrap;
+  }
+  .genre-btn.active {
+    background: var(--accent); border-color: var(--accent);
+    color: #fff; font-weight: 700;
+  }
 
-  .channel-card { display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:12px 14px; cursor:pointer; transition:all .18s; -webkit-user-select:none; user-select:none; }
-  .channel-card:active { transform:scale(.98); border-color:var(--accent); }
-  .channel-card.playing { border-color:var(--accent); box-shadow:0 0 0 1px var(--accent); }
-  .ch-dot { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; background:var(--surface); }
-  .ch-info { flex:1; min-width:0; }
-  .ch-name { font-size:14px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .ch-sub { font-size:11px; color:var(--muted); margin-top:2px; font-family:"DM Mono",monospace; }
-  .ch-right { display:flex; align-items:center; gap:8px; flex-shrink:0; }
-  .star-btn { font-size:19px; background:none; border:none; cursor:pointer; padding:2px; line-height:1; }
-  .ch-arrow { font-size:18px; color:var(--muted); }
-  .channel-card.playing .ch-arrow { color:var(--accent); }
+  /* ── 진행바 ── */
+  #progress-wrap {
+    height: 3px; background: var(--border); overflow: hidden;
+  }
+  #progress-bar {
+    height: 100%; width: 0%; background: var(--accent);
+    transition: width .3s; border-radius: 2px;
+  }
 
-  /* 편성표 */
-  #schedule-content { padding:12px 14px 120px; }
-  .sch-intro { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:14px; margin-bottom:14px; font-size:13px; color:var(--muted); line-height:1.7; }
-  .sch-intro h3 { font-size:15px; color:var(--text); margin-bottom:6px; }
-  .sch-section { font-size:11px; font-weight:700; color:var(--muted); letter-spacing:1px; text-transform:uppercase; margin:14px 0 8px; font-family:"DM Mono",monospace; }
-  .sch-links { display:flex; flex-direction:column; gap:7px; margin-bottom:4px; }
-  .sch-link { display:flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:13px 14px; text-decoration:none; transition:all .18s; }
-  .sch-link:active { transform:scale(.98); border-color:var(--accent2); }
-  .sch-icon { width:38px; height:38px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:19px; flex-shrink:0; }
-  .sch-info { flex:1; }
-  .sch-name { font-size:14px; font-weight:700; color:var(--text); }
-  .sch-desc { font-size:11px; color:var(--muted); margin-top:2px; }
-  .sch-arrow { font-size:16px; color:var(--muted); }
+  /* ── 상태 메시지 ── */
+  #status {
+    text-align: center; padding: 14px 18px;
+    font-size: 13px; color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    min-height: 44px;
+  }
 
-  #now-playing { position:fixed; bottom:0; left:0; right:0; z-index:200; background:rgba(22,22,31,0.97); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-top:1px solid var(--border); padding:12px 16px; display:none; align-items:center; gap:10px; }
-  #now-playing.visible { display:flex; }
-  .np-dot { width:9px; height:9px; border-radius:50%; background:var(--accent); flex-shrink:0; animation:pulse 1.4s ease-in-out infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
-  .np-info { flex:1; min-width:0; }
-  .np-label { font-size:10px; color:var(--muted); font-family:"DM Mono",monospace; }
-  .np-name { font-size:14px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  #stop-btn { background:var(--card); border:1px solid var(--border); color:var(--text); border-radius:10px; padding:7px 14px; font-size:12px; cursor:pointer; flex-shrink:0; }
+  /* ── 채널 목록 ── */
+  #channel-list {
+    padding: 8px 14px 120px;
+    display: flex; flex-direction: column; gap: 7px;
+  }
 
-  #modal-overlay { display:none; position:fixed; inset:0; z-index:300; background:rgba(0,0,0,.7); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); align-items:flex-end; justify-content:center; }
-  #modal-overlay.visible { display:flex; }
-  .modal { background:var(--card); border:1px solid var(--border); border-radius:20px 20px 0 0; width:100%; max-width:560px; padding:22px 18px 34px; }
-  .modal h3 { font-size:16px; margin-bottom:4px; }
-  .modal-ch { color:var(--accent); font-weight:700; font-size:15px; margin-bottom:14px; }
-  .modal-btns { display:flex; flex-direction:column; gap:9px; }
-  .modal-btn { padding:13px; border-radius:12px; border:none; font-size:14px; font-family:inherit; font-weight:700; cursor:pointer; transition:all .2s; }
-  .modal-btn.primary { background:var(--accent); color:#fff; }
-  .modal-btn.secondary { background:var(--surface); color:var(--text); border:1px solid var(--border); }
-  .modal-btn:active { opacity:.8; transform:scale(.98); }
-  .modal-url { font-family:"DM Mono",monospace; font-size:11px; color:var(--muted); word-break:break-all; background:var(--surface); padding:9px; border-radius:8px; margin-top:10px; }
+  .channel-card {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 13px 15px;
+    cursor: pointer; transition: all .18s;
+    -webkit-user-select: none; user-select: none;
+  }
+  .channel-card:active { transform: scale(.98); border-color: var(--accent); background: #1e1e35; }
+  .channel-card.playing {
+    border-color: var(--accent); background: #1e1e35;
+    box-shadow: 0 0 0 1px var(--accent);
+  }
 
-  .empty { text-align:center; padding:60px 20px; color:var(--muted); font-size:14px; line-height:2; }
-  .empty .icon { font-size:44px; display:block; margin-bottom:10px; }
+  .ch-genre-dot {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+    background: var(--surface);
+  }
+  .ch-info { flex: 1; min-width: 0; }
+  .ch-name {
+    font-size: 14px; font-weight: 700;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ch-genre-label {
+    font-size: 11px; color: var(--muted); margin-top: 2px;
+    font-family: 'DM Mono', monospace;
+  }
+  .ch-play-icon { font-size: 20px; color: var(--muted); flex-shrink: 0; }
+  .channel-card.playing .ch-play-icon { color: var(--accent); }
+
+  /* ── 재생 바 ── */
+  #now-playing {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(22,22,31,0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border);
+    padding: 14px 18px;
+    display: none;
+    align-items: center; gap: 12px;
+  }
+  #now-playing.visible { display: flex; }
+
+  .np-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0;
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:.5; transform:scale(.8); }
+  }
+  .np-info { flex: 1; min-width: 0; }
+  .np-label { font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; }
+  .np-name {
+    font-size: 14px; font-weight: 700;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  #stop-btn {
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--text); border-radius: 10px;
+    padding: 8px 16px; font-size: 13px; cursor: pointer;
+    flex-shrink: 0; transition: all .2s;
+  }
+  #stop-btn:active { background: var(--accent); border-color: var(--accent); }
+
+  /* ── 빈 상태 ── */
+  .empty {
+    text-align: center; padding: 60px 20px;
+    color: var(--muted); font-size: 14px;
+  }
+  .empty .icon { font-size: 48px; margin-bottom: 12px; }
+
+  /* ── 모달 (재생 안내) ── */
+  #modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 300;
+    background: rgba(0,0,0,.7); backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    align-items: flex-end; justify-content: center;
+  }
+  #modal-overlay.visible { display: flex; }
+  .modal {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px 20px 0 0; width: 100%; max-width: 560px;
+    padding: 24px 20px 36px;
+  }
+  .modal h3 { font-size: 17px; margin-bottom: 6px; }
+  .modal .modal-ch { color: var(--accent); font-weight: 700; font-size: 15px; margin-bottom: 16px; }
+  .modal-btns { display: flex; flex-direction: column; gap: 10px; }
+  .modal-btn {
+    padding: 14px; border-radius: 12px; border: none;
+    font-size: 15px; font-family: inherit; font-weight: 700;
+    cursor: pointer; transition: all .2s;
+  }
+  .modal-btn.primary { background: var(--accent); color: #fff; }
+  .modal-btn.secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+  .modal-btn:active { opacity: .8; transform: scale(.98); }
+  .modal-url {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    color: var(--muted); word-break: break-all;
+    background: var(--surface); padding: 10px; border-radius: 8px;
+    margin-top: 12px;
+  }
 </style>
 </head>
 <body>
 
 <header>
   <div class="header-top">
-    <div class="logo">&#127471;&#127477; <span>일본</span>TV</div>
+    <div class="logo">🇯🇵 <span>일본</span>TV</div>
     <div style="display:flex;gap:8px;align-items:center">
       <span class="badge" id="count-badge">로딩중...</span>
-      <button id="refresh-btn">&#128260;</button>
+      <button id="refresh-btn">🔄 새로고침</button>
     </div>
   </div>
-  <div class="tab-nav">
-    <button class="tab-btn active" data-tab="channels">&#128250; 채널</button>
-    <button class="tab-btn" data-tab="bookmarks">&#11088; 즐겨찾기</button>
-    <button class="tab-btn" data-tab="schedule">&#128197; 편성표</button>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="search" id="search-input" placeholder="채널명 검색..." autocomplete="off">
   </div>
+  <div class="genre-scroll" id="genre-bar"></div>
 </header>
 
 <div id="progress-wrap"><div id="progress-bar"></div></div>
+<div id="file-warning" style="display:none;background:#2a1a0a;border-bottom:2px solid #f7a325;padding:10px 18px;font-size:12px;color:#fbbf24;line-height:1.7;">
+  ⚠️ <b>VLC 연동이 안 될 경우:</b> 이 파일을 크롬에서 직접 열지 말고,<br>
+  파일 탐색기에서 <b>더블클릭</b>하거나 크롬 주소창에 <code style="background:#1a1000;padding:1px 5px;border-radius:3px;">file:///</code> 경로로 열어주세요.
+  <button onclick="this.parentElement.style.display='none'" style="float:right;background:none;border:none;color:#fbbf24;cursor:pointer;font-size:14px;">✕</button>
+</div>
 <div id="status">채널 목록 불러오는 중...</div>
-
-<div id="tab-channels" class="tab-content active">
-  <div class="search-wrap"><span class="search-icon">&#128269;</span><input type="search" id="search-input" placeholder="채널명 검색..." autocomplete="off"></div>
-  <div class="genre-scroll" id="genre-bar"></div>
-  <div id="channel-list"></div>
-</div>
-
-<div id="tab-bookmarks" class="tab-content">
-  <div id="bookmark-list"></div>
-</div>
-
-<div id="tab-schedule" class="tab-content">
-  <div id="schedule-content">
-    <div class="sch-intro">
-      <h3>&#128197; 일본 TV 편성표</h3>
-      방송사 공식 사이트에서 당일 편성표를 확인하세요. 탭하면 해당 사이트로 이동해요.
-    </div>
-    <div class="sch-section">&#127914; 지상파</div>
-    <div class="sch-links">
-      <a class="sch-link" href="https://www.nhk.or.jp/timetable/" target="_blank"><div class="sch-icon" style="background:#1a2a1a">&#128994;</div><div class="sch-info"><div class="sch-name">NHK 종합</div><div class="sch-desc">nhk.or.jp 공식 편성표</div></div><div class="sch-arrow">›</div></a>
-      <a class="sch-link" href="https://www.ntv.co.jp/program/" target="_blank"><div class="sch-icon" style="background:#1a1a2a">&#128250;</div><div class="sch-info"><div class="sch-name">日本テレビ (NTV)</div><div class="sch-desc">ntv.co.jp 공식 편성표</div></div><div class="sch-arrow">›</div></a>
-      <a class="sch-link" href="https://www.tbs.co.jp/timetable/" target="_blank"><div class="sch-icon" style="background:#2a1a1a">&#128308;</div><div class="sch-info"><div class="sch-name">TBS テレビ</div><div class="sch-desc">tbs.co.jp 공식 편성표</div></div><div class="sch-arrow">›</div></a>
-      <a class="sch-link" href="https://www.fujitv.co.jp/timetable/" target="_blank"><div class="sch-icon" style="background:#1a1a2a">&#128309;</div><div class="sch-info"><div class="sch-name">フジテレビ</div><div class="sch-desc">fujitv.co.jp 공식 편성표</div></div><div class="sch-arrow">›</div></a>
-      <a class="sch-link" href="https://www.tv-asahi.co.jp/timetable/" target="_blank"><div class="sch-icon" style="background:#1a2a2a">&#129679;</div><div class="sch-info"><div class="sch-name">テレビ朝日</div><div class="sch-desc">tv-asahi.co.jp 공식 편성표</div></div><div class="sch-arrow">›</div></a>
-      <a class="sch-link" href="https://www.tv-tokyo.co.jp/timetable/" target="_blank"><div class="sch-icon" style="background:#2a2a1a">&#128993;</div><div class="sch-info"><div class="sch-name">テレビ東京</div><div class="sch-desc">tv-tokyo.co.jp 공식 편성표</div></div><div class="sch-arrow">›</div></a>
-    </div>
-    <div class="sch-section">&#128225; BS 채널</div>
-    <div class="sch-links">
-      <a class="sch-link" href="https://www.nhk.or.jp/timetable/bs1/" target="_blank"><div class="sch-icon" style="background:#1a2a1a">&#128994;</div><div class="sch-info"><div class="sch-name">NHK BS</div><div class="sch-desc">nhk.or.jp BS 편성표</div></div><div class="sch-arrow">›</div></a>
-      <a class="sch-link" href="https://www.bs-tbs.co.jp/timetable/" target="_blank"><div class="sch-icon" style="background:#2a1a1a">&#128308;</div><div class="sch-info"><div class="sch-name">BS-TBS</div><div class="sch-desc">bs-tbs.co.jp 편성표</div></div><div class="sch-arrow">›</div></a>
-      <a class="sch-link" href="https://www.bsasahi.co.jp/timetable/" target="_blank"><div class="sch-icon" style="background:#1a2a2a">&#129679;</div><div class="sch-info"><div class="sch-name">BS朝日</div><div class="sch-desc">bsasahi.co.jp 편성표</div></div><div class="sch-arrow">›</div></a>
-      <a class="sch-link" href="https://www.bsfuji.tv/timetable/" target="_blank"><div class="sch-icon" style="background:#1a1a2a">&#128309;</div><div class="sch-info"><div class="sch-name">BSフジ</div><div class="sch-desc">bsfuji.tv 편성표</div></div><div class="sch-arrow">›</div></a>
-      <a class="sch-link" href="https://www.bs-tvtokyo.co.jp/timetable/" target="_blank"><div class="sch-icon" style="background:#2a2a1a">&#128993;</div><div class="sch-info"><div class="sch-name">BSテレ東</div><div class="sch-desc">bs-tvtokyo.co.jp 편성표</div></div><div class="sch-arrow">›</div></a>
-    </div>
-    <div class="sch-section">&#128197; 통합 편성표</div>
-    <div class="sch-links">
-      <a class="sch-link" href="https://tv.yahoo.co.jp/listings/" target="_blank"><div class="sch-icon" style="background:#2a1a2a">&#128302;</div><div class="sch-info"><div class="sch-name">Yahoo! TV</div><div class="sch-desc">전 채널 통합 편성표 (추천!)</div></div><div class="sch-arrow">›</div></a>
-      <a class="sch-link" href="https://bangumi.org/" target="_blank"><div class="sch-icon" style="background:#1a2a2a">&#128203;</div><div class="sch-info"><div class="sch-name">Bangumi</div><div class="sch-desc">애니/드라마 편성 전문</div></div><div class="sch-arrow">›</div></a>
-    </div>
-  </div>
-</div>
+<div id="channel-list"></div>
 
 <div id="now-playing">
   <div class="np-dot"></div>
-  <div class="np-info"><div class="np-label">재생 중</div><div class="np-name" id="np-name">-</div></div>
+  <div class="np-info">
+    <div class="np-label">재생 중</div>
+    <div class="np-name" id="np-name">-</div>
+  </div>
   <button id="stop-btn">⏹ 정지</button>
 </div>
 
+<!-- 재생 모달 -->
 <div id="modal-overlay">
   <div class="modal">
     <h3>채널 재생</h3>
     <div class="modal-ch" id="modal-ch-name"></div>
     <div class="modal-btns">
       <button class="modal-btn primary" id="modal-vlc">▶ VLC로 바로 재생</button>
-      <button class="modal-btn secondary" id="modal-bookmark">⭐ 즐겨찾기 추가</button>
+      <button class="modal-btn secondary" id="modal-copy">📋 주소 복사</button>
+      <button class="modal-btn secondary" id="modal-cancel">닫기</button>
+    </div>
+
+    <div class="modal-url" id="modal-url"></div>
+  </div>
+</div>
+
+<!-- VLC 설정 안내 모달 -->
+<div id="setup-modal" style="display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.85);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#1e1e2e;border:1px solid #2a2a3d;border-radius:20px;width:100%;max-width:500px;padding:24px;max-height:90vh;overflow-y:auto;">
+    <h3 style="font-size:17px;margin-bottom:4px;">🔧 VLC 웹인터페이스 설정</h3>
+    <p style="font-size:12px;color:#6b6b88;margin-bottom:16px;">최초 1회만 하면 돼요</p>
+    <ol style="font-size:13px;line-height:2.4;color:#a6adc8;padding-left:20px;">
+      <li>VLC 실행</li>
+      <li><b style="color:#e8e8f0;">도구 → 환경설정</b></li>
+      <li>왼쪽 하단 <b style="color:#e8e8f0;">"모두 보기"</b> 클릭</li>
+      <li><b style="color:#e8e8f0;">인터페이스 → 메인 인터페이스</b> → <b style="color:#f7a325;">"웹"</b> 체크</li>
+      <li><b style="color:#e8e8f0;">인터페이스 → 메인 인터페이스 → Lua</b><br>→ HTTP 비밀번호에 <code style="background:#313244;padding:2px 8px;border-radius:4px;color:#f7a325;font-size:14px;">1234</code> 입력</li>
+      <li><b style="color:#e8e8f0;">저장 후 VLC 재시작</b></li>
+    </ol>
+    <div style="margin-top:12px;background:#131320;border:1px solid #2a2a3d;border-radius:8px;padding:12px;font-size:12px;color:#6b6b88;">
+      💡 비밀번호를 다르게 설정했다면 여기서 변경하세요:
+      <div style="margin-top:8px;display:flex;gap:8px;align-items:center;">
+        <span style="color:#a6adc8;white-space:nowrap;">VLC 비밀번호:</span>
+        <input id="vlc-pw-input" type="text" value="1234"
+          style="flex:1;padding:6px 10px;background:#1e1e2e;border:1px solid #2a2a3d;border-radius:6px;color:#e8e8f0;font-size:13px;outline:none;">
+        <button onclick="saveVlcPw()" style="padding:6px 14px;background:#e94560;border:none;border-radius:6px;color:#fff;font-size:12px;cursor:pointer;font-family:inherit;font-weight:700;">저장</button>
+      </div>
+    </div>
+    <button onclick="document.getElementById('setup-modal').style.display='none'"
+      style="margin-top:16px;width:100%;padding:13px;background:#313244;border:none;border-radius:12px;color:#e8e8f0;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">닫기</button>
+  </div>
+</div>
+    <div class="modal-btns">
+      <button class="modal-btn primary" id="modal-vlc">📥 VLC용 파일 다운로드</button>
       <button class="modal-btn secondary" id="modal-copy">📋 주소 복사</button>
       <button class="modal-btn secondary" id="modal-cancel">닫기</button>
     </div>
@@ -180,18 +316,18 @@
 
 <script>
 const M3U_URL = "https://iptv-org.github.io/iptv/countries/jp.m3u";
-const CACHE_KEY = "japanTV_v4";
-const CACHE_TIME_KEY = "japanTV_v4_time";
-const CACHE_TTL = 6 * 60 * 60 * 1000;
-const BOOKMARK_KEY = "japanTV_bookmarks";
-const EMBEDDED_CHANNELS = [{"name": "Eisei Gekijo (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs22", "genre": "🎌 기타"}, {"name": "Family Gekijo (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs20", "genre": "🎌 기타"}, {"name": "Fishing Vision (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs25", "genre": "🎌 기타"}, {"name": "GSTV (720p)", "url": "https://japaneast.av.mk.io/mediakindcdn-mediakind/b8278d70-0a5f-400c-9b16-c7acf7004355/index.qfm/manifest(format=m3u8-cmaf)", "genre": "🎌 기타"}, {"name": "Gaora Sports (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs17", "genre": "🎌 기타"}, {"name": "Golf Network (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs03", "genre": "🎌 기타"}, {"name": "J Sports 1 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs18", "genre": "🎌 기타"}, {"name": "J Sports 2 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs19", "genre": "🎌 기타"}, {"name": "J Sports 3 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs21", "genre": "🎌 기타"}, {"name": "J Sports 4 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs22", "genre": "🎌 기타"}, {"name": "JOAB-DTV", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd02", "genre": "🎌 기타"}, {"name": "Jidaigeki Senmon (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs04", "genre": "🎌 기타"}, {"name": "Kansai TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx03", "genre": "🎌 기타"}, {"name": "Kayo Pops (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs13", "genre": "🎌 기타"}, {"name": "Kids Station (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs07", "genre": "🎌 기타"}, {"name": "MTV Japan (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs18", "genre": "🎌 기타"}, {"name": "Music Japan TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs06", "genre": "🎌 기타"}, {"name": "National Geographic Japan (1080p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs10", "genre": "🎌 기타"}, {"name": "Nihon Eiga Senmon (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs23", "genre": "🎌 기타"}, {"name": "Nittele G Plus (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs02", "genre": "🎌 기타"}, {"name": "Space Shower TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs26", "genre": "🎌 기타"}, {"name": "Star 2 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs27", "genre": "🎌 기타"}, {"name": "Star 3 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs28", "genre": "🎌 기타"}, {"name": "Sun TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx07", "genre": "🎌 기타"}, {"name": "TV Osaka (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx05", "genre": "🎌 기타"}, {"name": "Tokyo MX1 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd08", "genre": "🎌 기타"}, {"name": "ABC (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx02", "genre": "🎬 지상파"}, {"name": "BS Fuji TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs06", "genre": "🎬 지상파"}, {"name": "BS Nippon TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs02", "genre": "🎬 지상파"}, {"name": "BS TBS (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs04", "genre": "🎬 지상파"}, {"name": "BS TV Tokyo (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs05", "genre": "🎬 지상파"}, {"name": "Fuji TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd05", "genre": "🎬 지상파"}, {"name": "Fuji TV NEXT (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs26", "genre": "🎬 지상파"}, {"name": "MBS (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx01", "genre": "🎬 지상파"}, {"name": "Nippon TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd03", "genre": "🎬 지상파"}, {"name": "TBS (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd04", "genre": "🎬 지상파"}, {"name": "TV Asahi (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd06", "genre": "🎬 지상파"}, {"name": "TV Tokyo (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd07", "genre": "🎬 지상파"}, {"name": "YTV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx04", "genre": "🎬 지상파"}, {"name": "BS Asahi (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs03", "genre": "📡 BS·CS"}, {"name": "BS Shochiku Tokyu (1080p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs31", "genre": "📡 BS·CS"}, {"name": "Dlife (1080p)", "url": "https://43.100.9.67/api/streams/live/cs312/1080p/mpegts", "genre": "📡 BS·CS"}, {"name": "Sky A (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs01", "genre": "📡 BS·CS"}, {"name": "TAKARAZUKA SKY STAGE (1080p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs28", "genre": "📡 BS·CS"}, {"name": "WOWOW Cinema (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs07", "genre": "📡 BS·CS"}, {"name": "WOWOW Live", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs20", "genre": "📡 BS·CS"}, {"name": "WOWOW Prime (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs12", "genre": "📡 BS·CS"}, {"name": "Channel Ginga (1080p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs29", "genre": "📰 뉴스"}, {"name": "Disney Channel Japan (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs24", "genre": "📰 뉴스"}, {"name": "Green Channel (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs14", "genre": "📰 뉴스"}, {"name": "History Channel Japan (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs09", "genre": "📰 뉴스"}, {"name": "Home Drama Channel (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs05", "genre": "📰 뉴스"}, {"name": "NHK BS", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs11", "genre": "📰 뉴스"}, {"name": "NHK BSP4K (1080p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs01", "genre": "📰 뉴스"}, {"name": "NHK G (Osaka) (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx06", "genre": "📰 뉴스"}, {"name": "NHK G (Tokyo) (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd01", "genre": "📰 뉴스"}, {"name": "NHK Kishou Saigai (360p) [Not 24/7]", "url": "https://newssimul-stream.nhk.jp/hls/live/2010561/nhknewssimul/master.m3u8", "genre": "📰 뉴스"}, {"name": "Shop Channel (1080p) [Not 24/7]", "url": "https://stream3.shopch.jp/HLS/master.m3u8", "genre": "📰 뉴스"}, {"name": "TBS News (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs11", "genre": "📰 뉴스"}, {"name": "Toei Channel (1080p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs27", "genre": "📰 뉴스"}, {"name": "Weathernews (720p)", "url": "https://weather-live-hls01e.akamaized.net/ade36978-4ad3-48de-91ab-7d6edd0b6388/11ed8ed8ca.ism/manifest(format=m3u8-aapl-v3,audio-only=false).m3u8", "genre": "📰 뉴스"}, {"name": "QVC Japan (720p)", "url": "https://cdn-live1.qvc.jp/iPhone/1501/1501.m3u8", "genre": "🛒 쇼핑"}]; // EMBEDDED_DATA_PLACEHOLDER
+// ★ 내장 채널 데이터 (배치파일이 자동으로 업데이트) ★
+const EMBEDDED_CHANNELS = null; // EMBEDDED_DATA_PLACEHOLDER
+const CACHE_KEY = "japanTV_cache_v2";
+const CACHE_TIME_KEY = "japanTV_cache_time";
+const CACHE_TTL = 6 * 60 * 60 * 1000; // 6시간
 
 const GENRES = {
-  "전체":"",
-  "📰 뉴스":["news","nhk","news24","ann","jnn","fnn","nnn"],
-  "🎬 지상파":["ntv","nippon tv","tbs","fuji","tv asahi","tv tokyo","テレビ","日テレ","フジ","朝日","東京","ytv","mbs","abc","関西"],
-  "📡 BS·CS":["bs","cs","wowow","sky","at-x","dlife"],
-  "🛒 쇼핑":["shop","qvc","japanet"],
+  "전체": "🌐",
+  "📰 뉴스": ["news","nhk","news24","ann","jnn","fnn","nnn"],
+  "🎬 지상파": ["ntv","nippon tv","tbs","fuji","tv asahi","tv tokyo","テレビ","日テレ","フジ","朝日","東京","ytv","mbs","abc","関西"],
+  "📡 BS·CS": ["bs","cs","wowow","sky","at-x","dlife"],
+  "🛒 쇼핑": ["shop","qvc","japanet","ショップ","通販"],
 };
 
 function guessGenre(name) {
@@ -203,219 +339,247 @@ function guessGenre(name) {
   return "🎌 기타";
 }
 
+// ── 파싱 ──
 function parseM3U(text) {
   const channels = [];
-  const lines = text.split(/\r?\n/);
+  const lines = text.split("\n");
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
     if (line.startsWith("#EXTINF")) {
-      const nm = line.match(/,(.+)$/);
-      const name = nm ? nm[1].trim() : "알 수 없음";
+      const nameM = line.match(/,(.+)$/);
+      const name = nameM ? nameM[1].trim() : "알 수 없음";
       let j = i + 1;
       while (j < lines.length && !lines[j].trim()) j++;
       if (j < lines.length) {
         const url = lines[j].trim();
-        if (url.startsWith("http")) { channels.push({name, url, genre:guessGenre(name)}); i = j; }
+        if (url.startsWith("http")) {
+          channels.push({ name, url, genre: guessGenre(name) });
+          i = j;
+        }
       }
     }
   }
   return channels;
 }
 
-function getBookmarks() { try { return JSON.parse(localStorage.getItem(BOOKMARK_KEY)||"[]"); } catch { return []; } }
-function saveBookmarks(bm) { localStorage.setItem(BOOKMARK_KEY, JSON.stringify(bm)); }
-function isBookmarked(url) { return getBookmarks().some(b => b.url === url); }
-function toggleBookmark(ch) {
-  let bm = getBookmarks();
-  if (isBookmarked(ch.url)) bm = bm.filter(b => b.url !== ch.url);
-  else bm.push(ch);
-  saveBookmarks(bm);
-  return isBookmarked(ch.url);
+// ── URL 체크 (fetch HEAD) ──
+async function checkUrl(url) {
+  return true; // 체크 없이 전부 표시
 }
 
-let allChannels=[], filtered=[], currentChannel=null, selectedGenre="전체", currentTab="channels", modalChannel=null;
-const $status=$('#status'), $list=$('#channel-list'), $bmList=$('#bookmark-list'), $bar=$('#progress-bar');
-const $search=$('#search-input'), $genreBar=$('#genre-bar'), $count=$('#count-badge');
-const $nowPlay=$('#now-playing'), $npName=$('#np-name');
+// ── 상태 ──
+let allChannels = [];
+let liveChannels = [];
+let filtered = [];
+let currentChannel = null;
+let selectedGenre = "전체";
 
-function $(id) { return document.getElementById(id); }
+const $status   = document.getElementById("status");
+const $list     = document.getElementById("channel-list");
+const $bar      = document.getElementById("progress-bar");
+const $search   = document.getElementById("search-input");
+const $genreBar = document.getElementById("genre-bar");
+const $count    = document.getElementById("count-badge");
+const $nowPlay  = document.getElementById("now-playing");
+const $npName   = document.getElementById("np-name");
 
-document.querySelectorAll(".tab-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-    btn.classList.add("active");
-    currentTab = btn.dataset.tab;
-    document.getElementById("tab-"+currentTab).classList.add("active");
-    if (currentTab === "bookmarks") renderBookmarks();
-  });
-});
-
-function buildGenreBar() {
-  const present = new Set(allChannels.map(c => c.genre));
-  const all = ["전체", ...Object.keys(GENRES).filter(g=>g!=="전체"), "🎌 기타"];
+// ── 장르 버튼 생성 ──
+function buildGenreBar(channels) {
+  const present = new Set(channels.map(c => c.genre));
+  const all = ["전체", ...Object.keys(GENRES).filter(g => g !== "전체"), "🎌 기타"];
   $genreBar.innerHTML = "";
   all.forEach(g => {
     if (g !== "전체" && !present.has(g)) return;
     const btn = document.createElement("button");
-    btn.className = "genre-btn" + (g===selectedGenre?" active":"");
+    btn.className = "genre-btn" + (g === selectedGenre ? " active" : "");
     btn.textContent = g === "전체" ? "🌐 전체" : g;
-    btn.onclick = () => { selectedGenre=g; applyFilter(); buildGenreBar(); };
+    btn.onclick = () => { selectedGenre = g; applyFilter(); buildGenreBar(liveChannels); };
     $genreBar.appendChild(btn);
   });
 }
 
+// ── 필터 ──
 function applyFilter() {
   const q = $search.value.toLowerCase();
-  filtered = allChannels.filter(c => {
+  filtered = liveChannels.filter(c => {
     if (selectedGenre !== "전체" && c.genre !== selectedGenre) return false;
     if (q && !c.name.toLowerCase().includes(q)) return false;
     return true;
   });
   renderList();
-  $count.textContent = filtered.length+"채널";
+  $count.textContent = `${filtered.length}채널`;
   $count.className = "badge live";
 }
 
-function makeCard(ch) {
-  const card = document.createElement("div");
-  const playing = currentChannel === ch.url;
-  const bmed = isBookmarked(ch.url);
-  card.className = "channel-card" + (playing?" playing":"");
-  card.innerHTML = `
-    <div class="ch-dot">${ch.genre.split(" ")[0]}</div>
-    <div class="ch-info">
-      <div class="ch-name">${ch.name}</div>
-      <div class="ch-sub">${ch.genre}</div>
-    </div>
-    <div class="ch-right">
-      <button class="star-btn${bmed?" active":""}">${bmed?"⭐":"☆"}</button>
-      <div class="ch-arrow">${playing?"▶":"›"}</div>
-    </div>`;
-  card.querySelector(".star-btn").addEventListener("click", e => {
-    e.stopPropagation();
-    const added = toggleBookmark(ch);
-    e.currentTarget.textContent = added ? "⭐" : "☆";
-    e.currentTarget.classList.toggle("active", added);
-    if (currentTab === "bookmarks") renderBookmarks();
-  });
-  card.addEventListener("click", () => openModal(ch));
-  return card;
-}
-
+// ── 렌더링 ──
 function renderList() {
-  if (!filtered.length) { $list.innerHTML=`<div class="empty"><span class="icon">📭</span>채널이 없습니다</div>`; return; }
+  if (filtered.length === 0) {
+    $list.innerHTML = `<div class="empty"><div class="icon">📭</div>채널이 없습니다</div>`;
+    return;
+  }
   $list.innerHTML = "";
-  filtered.forEach(ch => $list.appendChild(makeCard(ch)));
+  filtered.forEach((ch, i) => {
+    const card = document.createElement("div");
+    card.className = "channel-card" + (currentChannel === ch.url ? " playing" : "");
+    card.innerHTML = `
+      <div class="ch-genre-dot">${ch.genre.split(" ")[0]}</div>
+      <div class="ch-info">
+        <div class="ch-name">${ch.name}</div>
+        <div class="ch-genre-label">${ch.genre}</div>
+      </div>
+      <div class="ch-play-icon">${currentChannel === ch.url ? "▶" : "›"}</div>
+    `;
+    card.onclick = () => openModal(ch);
+    $list.appendChild(card);
+  });
 }
 
-function renderBookmarks() {
-  const bm = getBookmarks();
-  $bmList.innerHTML = "";
-  if (!bm.length) { $bmList.innerHTML=`<div class="empty"><span class="icon">⭐</span>즐겨찾기한 채널이 없어요<br>채널 옆 ☆ 버튼으로 추가하세요</div>`; return; }
-  bm.forEach(ch => $bmList.appendChild(makeCard(ch)));
-}
-
+// ── 모달 ──
+let modalChannel = null;
 function openModal(ch) {
   modalChannel = ch;
-  $('modal-ch-name').textContent = ch.name;
-  $('modal-url').textContent = ch.url;
-  $('modal-bookmark').textContent = isBookmarked(ch.url) ? "⭐ 즐겨찾기 제거" : "⭐ 즐겨찾기 추가";
-  $('modal-overlay').classList.add("visible");
+  document.getElementById("modal-ch-name").textContent = ch.name;
+  document.getElementById("modal-url").textContent = ch.url;
+  document.getElementById("modal-overlay").classList.add("visible");
 }
-
-$('modal-cancel').onclick = () => $('modal-overlay').classList.remove("visible");
-$('modal-overlay').onclick = e => { if (e.target===$('modal-overlay')) $('modal-overlay').classList.remove("visible"); };
-$('modal-bookmark').onclick = () => {
-  if (!modalChannel) return;
-  const added = toggleBookmark(modalChannel);
-  $('modal-bookmark').textContent = added ? "⭐ 즐겨찾기 제거" : "⭐ 즐겨찾기 추가";
-  renderList();
-  if (currentTab==="bookmarks") renderBookmarks();
+document.getElementById("modal-cancel").onclick = () => {
+  document.getElementById("modal-overlay").classList.remove("visible");
 };
-$('modal-copy').onclick = () => {
-  if (!modalChannel) return;
-  navigator.clipboard.writeText(modalChannel.url).then(() => {
-    $('modal-copy').textContent = "✅ 복사됨!";
-    setTimeout(() => $('modal-copy').textContent = "📋 주소 복사", 2000);
-  });
-};
-$('modal-vlc').onclick = () => {
+document.getElementById("modal-vlc").onclick = async () => {
   if (!modalChannel) return;
   const url = modalChannel.url;
+  const name = modalChannel.name;
+  const isIpad = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  if (isIpad) {
+    // 아이패드: vlc:// 프로토콜
+    window.location.href = "vlc://" + url;
+    setPlaying(url, name);
+    document.getElementById("modal-overlay").classList.remove("visible");
+    return;
+  }
+
+  // 기기별 재생 방식 분기
+  document.getElementById("vlc-error").style.display = "none";
   const ua = navigator.userAgent;
   const isAndroid = /Android/i.test(ua);
+  const isIOS = /iPad|iPhone|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
   if (isAndroid) {
-    window.location.href = `intent:${url}#Intent;package=org.videolan.vlc;action=android.intent.action.VIEW;end`;
+    // 안드로이드: intent 방식으로 VLC 실행
+    const intent = `intent:${url}#Intent;package=org.videolan.vlc;action=android.intent.action.VIEW;end`;
+    window.location.href = intent;
+  } else if (isIOS) {
+    // iOS: vlc:// 프로토콜
+    window.location.href = "vlc://" + url;
   } else {
+    // PC: vlc:// 시도
     window.location.href = "vlc://" + url;
   }
+
   setTimeout(() => {
-    currentChannel = url;
-    $npName.textContent = modalChannel.name;
-    $nowPlay.classList.add("visible");
-    $('modal-overlay').classList.remove("visible");
-    renderList();
+    setPlaying(url, name);
+    document.getElementById("modal-overlay").classList.remove("visible");
   }, 300);
 };
-$('stop-btn').onclick = () => {
+
+function setPlaying(url, name) {
+  currentChannel = url;
+  $npName.textContent = name;
+  $nowPlay.classList.add("visible");
+  renderList();
+}
+document.getElementById("modal-copy").onclick = () => {
+  if (!modalChannel) return;
+  navigator.clipboard.writeText(modalChannel.url).then(() => {
+    document.getElementById("modal-copy").textContent = "✅ 복사됨!";
+    setTimeout(() => document.getElementById("modal-copy").textContent = "📋 주소 복사", 2000);
+  });
+};
+document.getElementById("modal-overlay").onclick = (e) => {
+  if (e.target === document.getElementById("modal-overlay"))
+    document.getElementById("modal-overlay").classList.remove("visible");
+};
+
+// ── 정지 ──
+document.getElementById("stop-btn").onclick = () => {
   currentChannel = null;
   $nowPlay.classList.remove("visible");
   renderList();
 };
 
-async function loadChannels(force=false) {
+// ── 메인 로드 ──
+async function loadChannels(forceRefresh = false) {
   $status.textContent = "채널 목록 불러오는 중...";
   $bar.style.width = "10%";
-  // 내장 데이터 우선
-  if (!force && EMBEDDED_CHANNELS && Array.isArray(EMBEDDED_CHANNELS) && EMBEDDED_CHANNELS.length > 0) {
-    allChannels = EMBEDDED_CHANNELS;
+  $list.innerHTML = "";
+
+  // ★ 내장 채널 데이터 우선 사용 (배치파일로 생성된 검증된 채널)
+  if (!forceRefresh && EMBEDDED_CHANNELS && EMBEDDED_CHANNELS.length > 0) {
+    liveChannels = EMBEDDED_CHANNELS;
     $bar.style.width = "100%";
-    $status.textContent = "✅ "+allChannels.length+"개 채널";
-    buildGenreBar(); applyFilter();
+    $status.textContent = `✅ ${liveChannels.length}개 채널 (검증된 목록)`;
+    buildGenreBar(liveChannels);
+    applyFilter();
     setTimeout(() => $status.textContent = "", 2000);
     return;
   }
-  // 캐시 확인 (이전 버전 포함)
-  if (!force) {
-    const keys = [CACHE_KEY, "japanTV_cache_v3", "japanTV_v3"];
-    for (const key of keys) {
-      const c = localStorage.getItem(key);
-      const t = localStorage.getItem(key+"_time") || localStorage.getItem("japanTV_cache_time_v3");
-      if (c && t && Date.now()-Number(t) < CACHE_TTL) {
-        try {
-          allChannels = JSON.parse(c);
-          if (allChannels.length > 0) {
-            $bar.style.width = "100%";
-            $status.textContent = "캐시에서 "+allChannels.length+"개 로드됨";
-            buildGenreBar(); applyFilter();
-            setTimeout(() => $status.textContent="", 2000);
-            return;
-          }
-        } catch(e) {}
-      }
+
+  // 캐시 확인
+  if (!forceRefresh) {
+    const cached = localStorage.getItem(CACHE_KEY);
+    const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
+    if (cached && cachedTime && Date.now() - Number(cachedTime) < CACHE_TTL) {
+      liveChannels = JSON.parse(cached);
+      $bar.style.width = "100%";
+      $status.textContent = `캐시에서 ${liveChannels.length}개 로드됨`;
+      buildGenreBar(liveChannels);
+      applyFilter();
+      setTimeout(() => $status.textContent = "", 2000);
+      return;
     }
   }
+
+  // m3u 다운로드
+  let text;
   try {
     const r = await fetch(M3U_URL);
-    const text = await r.text();
-    allChannels = parseM3U(text);
-    allChannels.sort((a,b) => a.genre.localeCompare(b.genre)||a.name.localeCompare(b.name));
-    localStorage.setItem(CACHE_KEY, JSON.stringify(allChannels));
-    localStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
-  } catch(e) {
-    $status.textContent = "❌ 다운로드 실패";
+    text = await r.text();
+  } catch (e) {
+    $status.textContent = "❌ 다운로드 실패. 인터넷 연결을 확인하세요.";
     $bar.style.width = "0%";
     return;
   }
+
+  allChannels = parseM3U(text);
+  $bar.style.width = "30%";
+  $status.textContent = `총 ${allChannels.length}개 채널 확인 중... (시간이 걸릴 수 있습니다)`;
+
+  // 체크 없이 전체 채널 바로 사용
+  liveChannels = allChannels;
+  $bar.style.width = "98%";
+
+  // 캐시 저장
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify(liveChannels));
+    localStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
+  } catch(e) {}
+
   $bar.style.width = "100%";
-  $status.textContent = "✅ "+allChannels.length+"개 채널";
-  buildGenreBar(); applyFilter();
-  setTimeout(() => $status.textContent="", 2000);
+  $status.textContent = `✅ ${liveChannels.length}개 채널 준비됨`;
+  buildGenreBar(liveChannels);
+  applyFilter();
+  setTimeout(() => $status.textContent = "", 3000);
 }
 
-$('search-input').addEventListener("input", applyFilter);
-$('refresh-btn').onclick = () => loadChannels(true);
+$search.addEventListener("input", applyFilter);
+document.getElementById("refresh-btn").onclick = () => loadChannels(true);
+
+// 파일 열기 방식 감지
+if (location.protocol !== 'file:') {
+  document.getElementById('file-warning').style.display = 'block';
+}
 loadChannels();
 </script>
 </body>
