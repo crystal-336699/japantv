@@ -177,7 +177,7 @@
     <div class="modal-ch" id="modal-ch-name"></div>
     <div class="modal-btns">
       <button class="modal-btn primary" id="modal-vlc">▶ VLC로 바로 재생</button>
-      <button class="modal-btn primary" id="modal-vlc2" style="background:#f7a325;color:#1e1e2e;">🔗 VLC 링크 열기 (PC용)</button>
+      <a class="modal-btn primary" id="modal-vlc2" href="" style="background:#f7a325;color:#1e1e2e;text-decoration:none;text-align:center;display:block;">🔗 VLC 링크 열기 (Android/PC)</a>
       <button class="modal-btn secondary" id="modal-bookmark">⭐ 즐겨찾기 추가</button>
       <button class="modal-btn secondary" id="modal-copy">📋 주소 복사</button>
       <button class="modal-btn secondary" id="modal-cancel">닫기</button>
@@ -192,7 +192,7 @@ const CACHE_KEY = "japanTV_v4";
 const CACHE_TIME_KEY = "japanTV_v4_time";
 const CACHE_TTL = 6 * 60 * 60 * 1000;
 const BOOKMARK_KEY = "japanTV_bookmarks";
-const EMBEDDED_CHANNELS = [{"name": "Eisei Gekijo (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs22", "genre": "🎌 기타"}, {"name": "Family Gekijo (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs20", "genre": "🎌 기타"}, {"name": "Fishing Vision (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs25", "genre": "🎌 기타"}, {"name": "GSTV (720p)", "url": "https://japaneast.av.mk.io/mediakindcdn-mediakind/b8278d70-0a5f-400c-9b16-c7acf7004355/index.qfm/manifest(format=m3u8-cmaf)", "genre": "🎌 기타"}, {"name": "Gaora Sports (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs17", "genre": "🎌 기타"}, {"name": "Golf Network (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs03", "genre": "🎌 기타"}, {"name": "J Sports 1 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs18", "genre": "🎌 기타"}, {"name": "J Sports 2 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs19", "genre": "🎌 기타"}, {"name": "J Sports 3 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs21", "genre": "🎌 기타"}, {"name": "J Sports 4 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs22", "genre": "🎌 기타"}, {"name": "JOAB-DTV", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd02", "genre": "🎌 기타"}, {"name": "Jidaigeki Senmon (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs04", "genre": "🎌 기타"}, {"name": "Kansai TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx03", "genre": "🎌 기타"}, {"name": "Kayo Pops (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs13", "genre": "🎌 기타"}, {"name": "Kids Station (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs07", "genre": "🎌 기타"}, {"name": "MTV Japan (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs18", "genre": "🎌 기타"}, {"name": "Music Japan TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs06", "genre": "🎌 기타"}, {"name": "National Geographic Japan (1080p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs10", "genre": "🎌 기타"}, {"name": "Nihon Eiga Senmon (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs23", "genre": "🎌 기타"}, {"name": "Nittele G Plus (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs02", "genre": "🎌 기타"}, {"name": "Space Shower TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs26", "genre": "🎌 기타"}, {"name": "Star 2 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs27", "genre": "🎌 기타"}, {"name": "Star 3 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs28", "genre": "🎌 기타"}, {"name": "Sun TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx07", "genre": "🎌 기타"}, {"name": "TV Osaka (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx05", "genre": "🎌 기타"}, {"name": "Tokyo MX1 (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd08", "genre": "🎌 기타"}, {"name": "ABC (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx02", "genre": "🎬 지상파"}, {"name": "BS Fuji TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs06", "genre": "🎬 지상파"}, {"name": "BS Nippon TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs02", "genre": "🎬 지상파"}, {"name": "BS TBS (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs04", "genre": "🎬 지상파"}, {"name": "BS TV Tokyo (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs05", "genre": "🎬 지상파"}, {"name": "Fuji TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd05", "genre": "🎬 지상파"}, {"name": "Fuji TV NEXT (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs26", "genre": "🎬 지상파"}, {"name": "MBS (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx01", "genre": "🎬 지상파"}, {"name": "Nippon TV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd03", "genre": "🎬 지상파"}, {"name": "TBS (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd04", "genre": "🎬 지상파"}, {"name": "TV Asahi (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd06", "genre": "🎬 지상파"}, {"name": "TV Tokyo (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd07", "genre": "🎬 지상파"}, {"name": "YTV (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx04", "genre": "🎬 지상파"}, {"name": "BS Asahi (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs03", "genre": "📡 BS·CS"}, {"name": "BS Shochiku Tokyu (1080p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs31", "genre": "📡 BS·CS"}, {"name": "Dlife (1080p)", "url": "https://43.100.9.67/api/streams/live/cs312/1080p/mpegts", "genre": "📡 BS·CS"}, {"name": "Sky A (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs01", "genre": "📡 BS·CS"}, {"name": "TAKARAZUKA SKY STAGE (1080p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs28", "genre": "📡 BS·CS"}, {"name": "WOWOW Cinema (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs07", "genre": "📡 BS·CS"}, {"name": "WOWOW Live", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs20", "genre": "📡 BS·CS"}, {"name": "WOWOW Prime (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs12", "genre": "📡 BS·CS"}, {"name": "Channel Ginga (1080p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs29", "genre": "📰 뉴스"}, {"name": "Disney Channel Japan (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs24", "genre": "📰 뉴스"}, {"name": "Green Channel (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs14", "genre": "📰 뉴스"}, {"name": "History Channel Japan (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs09", "genre": "📰 뉴스"}, {"name": "Home Drama Channel (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs05", "genre": "📰 뉴스"}, {"name": "NHK BS", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs11", "genre": "📰 뉴스"}, {"name": "NHK BSP4K (1080p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=bs01", "genre": "📰 뉴스"}, {"name": "NHK G (Osaka) (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gx06", "genre": "📰 뉴스"}, {"name": "NHK G (Tokyo) (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=gd01", "genre": "📰 뉴스"}, {"name": "NHK Kishou Saigai (360p) [Not 24/7]", "url": "https://newssimul-stream.nhk.jp/hls/live/2010561/nhknewssimul/master.m3u8", "genre": "📰 뉴스"}, {"name": "Shop Channel (1080p) [Not 24/7]", "url": "https://stream3.shopch.jp/HLS/master.m3u8", "genre": "📰 뉴스"}, {"name": "TBS News (544p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs11", "genre": "📰 뉴스"}, {"name": "Toei Channel (1080p)", "url": "http://cdns.jp-primehome.com:8000/zhongying/live/playlist.m3u8?cid=cs27", "genre": "📰 뉴스"}, {"name": "Weathernews (720p)", "url": "https://weather-live-hls01e.akamaized.net/ade36978-4ad3-48de-91ab-7d6edd0b6388/11ed8ed8ca.ism/manifest(format=m3u8-aapl-v3,audio-only=false).m3u8", "genre": "📰 뉴스"}, {"name": "QVC Japan (720p)", "url": "https://cdn-live1.qvc.jp/iPhone/1501/1501.m3u8", "genre": "🛒 쇼핑"}]; // EMBEDDED_DATA_PLACEHOLDER
+const EMBEDDED_CHANNELS = null; // EMBEDDED_DATA_PLACEHOLDER
 
 const GENRES = {
   "전체":"",
@@ -333,26 +333,25 @@ function openModal(ch) {
   const ua = navigator.userAgent;
   const isMobile = /Android|iPad|iPhone|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   $('modal-vlc').textContent = "▶ VLC로 바로 재생";
+  // Android/PC용 <a> 태그 href 설정
+  const ua2 = navigator.userAgent;
+  const isAndroid2 = /Android/i.test(ua2);
+  if (isAndroid2) {
+    $('modal-vlc2').href = `intent:${ch.url}#Intent;package=org.videolan.vlc;action=android.intent.action.VIEW;end`;
+  } else {
+    $('modal-vlc2').href = "vlc://" + ch.url;
+  }
   $('modal-overlay').classList.add("visible");
 }
 
 $('modal-cancel').onclick = () => $('modal-overlay').classList.remove("visible");
 $('modal-vlc2').onclick = () => {
   if (!modalChannel) return;
-  const url = modalChannel.url;
-  const a = document.createElement("a");
-  a.href = "vlc://" + url;
-  a.style.display = "none";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  setTimeout(() => {
-    currentChannel = url;
-    $npName.textContent = modalChannel.name;
-    $nowPlay.classList.add("visible");
-    $('modal-overlay').classList.remove("visible");
-    renderList();
-  }, 300);
+  currentChannel = modalChannel.url;
+  $npName.textContent = modalChannel.name;
+  $nowPlay.classList.add("visible");
+  $('modal-overlay').classList.remove("visible");
+  renderList();
 };
 $('modal-overlay').onclick = e => { if (e.target===$('modal-overlay')) $('modal-overlay').classList.remove("visible"); };
 $('modal-bookmark').onclick = () => {
